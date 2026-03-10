@@ -29,20 +29,32 @@ const characters = [
 ];
 
 function displayCharactersList() {
-	const container = document.getElementById("characters-list");
-	const divInfoContainer = document.createElement("div");
-	divInfoContainer.className = "info-container";
-	for(var i=0; i<characters.length; i++){
-		const pName = document.createElement("p");
-		pName.className = "name";
-		const spanNameLabel = document.createElement("span");
-		spanNameLabel.textContent = "Name: ";
-		const spanNameValue = document.createElement("span");
-		spanNameValue.className = "name-value";
-		spanNameValue.textContent = characters[i].name;
-		pName.appendChild(spanNameLabel);
-		pName.appendChild(spanNameValue);
-		divInfoContainer.appendChild(pName);
+    const container = document.getElementById("characters-list");
+    container.innerHTML = "";
+    const divInfoContainer = document.createElement("div");
+    divInfoContainer.className = "info-container";
+    for(var i=0; i<characters.length; i++){
+        const pName = document.createElement("p");
+        pName.className = "name";
+        const spanNameLabel = document.createElement("span");
+        spanNameLabel.textContent = "Name: ";
+        const spanNameValue = document.createElement("span");
+        spanNameValue.className = "name-value";
+        spanNameValue.textContent = characters[i].name;
+        pName.appendChild(spanNameLabel);
+        pName.appendChild(spanNameValue);
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "deletebutton";
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", (function(index) {
+            return function() {
+                DeleteCharacter(index);
+            };
+        })(i));
+        pName.appendChild(deleteButton);    
+        divInfoContainer.appendChild(pName);
+        container.appendChild(divInfoContainer);
+        divInfoContainer.appendChild(pName);
         container.appendChild(divInfoContainer);
     }
 }
@@ -64,6 +76,7 @@ let NewCardAttack = null;
     });
 }); 
 deze function was niet tuff
+waarom bewaar ik hem zelf nog?
 */
 
 function CreateCard() {
@@ -83,4 +96,34 @@ function CreateCard() {
     });
     cardDiv.appendChild(deleteButton);
     container.appendChild(cardDiv);
+}
+
+function CreateCharacter() {
+    const name = prompt("Enter character name:");
+    if (!name) return;
+    
+    const health = prompt("Enter health:");
+    if (!health) return;
+    
+    const attack = prompt("Enter attack:");
+    if (!attack) return;
+    
+    const classPrompt = "Select a class:\n1. dwarf\n2. elf\n3. human\n4. orc\n5. mage\n6. dictator";
+    const classIndex = prompt(classPrompt);
+    if (!classIndex) return;
+    
+    const newCharacter = {
+        name: name,
+        health: parseInt(health),
+        attack: parseInt(attack),
+        class: CardClasses[parseInt(classIndex) - 1]
+    };
+    
+    characters.push(newCharacter);
+    displayCharactersList();
+}
+
+function DeleteCharacter(index) {
+    characters.splice(index, 1);
+    displayCharactersList();
 }
