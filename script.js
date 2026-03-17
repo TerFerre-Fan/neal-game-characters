@@ -6,25 +6,29 @@ const characters = [
         name: "Maurice",
         health: 100,
         attack: 20,
-        class: "dwarf"
+        class: "dwarf",
+        Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI4o2QqiNwyNsdklYDsXyHy4wDec5oLlKmWA&s"
     },
     {
         name: "Finn",
         health: 120,
         attack: 30,
-        class: "orc"
+        class: "orc",
+        Image: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cb/Weinstein-like_Orc.jpg/250px-Weinstein-like_Orc.jpg"
     },
     {
         name: "Louis",
         health: 120,
         attack: 20,
-        class: "human"
+        class: "human",
+        Image: "https://prod-img.nieuwsblad.be/public/nieuws/tz4hjr-1e3ea2b546bf15b73bf62dcb9754ad54172a74d46e3d6d7f32efb5eaa0d7b17c.jpg/alternates/BASE_WIDTH/1e3ea2b546bf15b73bf62dcb9754ad54172a74d46e3d6d7f32efb5eaa0d7b17c.jpg"
     },
     {
         name: "Jidske",
         health: 120,
         attack: 25,
-        class: "dictator"
+        class: "dictator",
+        Image: "https://www.tersterre.be/wp-content/uploads/2023/08/jidske-scaled-768x768.jpg"
     }
 ];
 
@@ -34,6 +38,11 @@ function displayCharactersList() {
     const divInfoContainer = document.createElement("div");
     divInfoContainer.className = "info-container";
     for(var i=0; i<characters.length; i++){
+
+        const pCharacter = document.createElement("p");
+        pCharacter.className = "character";
+        divInfoContainer.appendChild(pCharacter);
+
         const pName = document.createElement("p");
         pName.className = "name";
         const spanNameLabel = document.createElement("span");
@@ -43,6 +52,49 @@ function displayCharactersList() {
         spanNameValue.textContent = characters[i].name;
         pName.appendChild(spanNameLabel);
         pName.appendChild(spanNameValue);
+        pCharacter.appendChild(pName);
+
+        const pHealth = document.createElement("p");
+        pHealth.className = "health";
+        const spanHealthLabel = document.createElement("span");
+        spanHealthLabel.textContent = "Health: ";
+        const spanHealthValue = document.createElement("span");
+        spanHealthValue.className = "health-value";
+        spanHealthValue.textContent = characters[i].health;
+        pHealth.appendChild(spanHealthLabel);
+        pHealth.appendChild(spanHealthValue);
+        pCharacter.appendChild(pHealth);
+
+        const pAttack = document.createElement("p");
+        pAttack.className = "attack";
+        const spanAttackLabel = document.createElement("span");
+        spanAttackLabel.textContent = "Attack: ";
+        const spanAttackValue = document.createElement("span");
+        spanAttackValue.className = "attack-value";
+        spanAttackValue.textContent = characters[i].attack;
+        pAttack.appendChild(spanAttackLabel);
+        pAttack.appendChild(spanAttackValue);
+        pCharacter.appendChild(pAttack);
+
+        const pClass = document.createElement("p");
+        pClass.className = "class";
+        const spanClassLabel = document.createElement("span");
+        spanClassLabel.textContent = "Class: ";
+        const spanClassValue = document.createElement("span");
+        spanClassValue.className = "class-value";
+        spanClassValue.textContent = characters[i].class;
+        pClass.appendChild(spanClassLabel);
+        pClass.appendChild(spanClassValue);
+        pCharacter.appendChild(pClass);
+ 
+        const pImage = document.createElement("p");
+        pImage.className = "image";
+        const spanImageView = document.createElement("span");
+        spanImageView.className = "image-value";
+        spanImageView.innerHTML = `<img src="${characters[i].Image}" alt="${characters[i].name}" style="width: 100px; height: 100px;">`;
+        pImage.appendChild(spanImageView);
+        pCharacter.appendChild(pImage);
+        
         const deleteButton = document.createElement("button");
         deleteButton.className = "deletebutton";
         deleteButton.textContent = "Delete";
@@ -51,10 +103,9 @@ function displayCharactersList() {
                 DeleteCharacter(index);
             };
         })(i));
-        pName.appendChild(deleteButton);    
-        divInfoContainer.appendChild(pName);
-        container.appendChild(divInfoContainer);
-        divInfoContainer.appendChild(pName);
+        pCharacter.appendChild(deleteButton);
+        
+        divInfoContainer.appendChild(pCharacter);
         container.appendChild(divInfoContainer);
     }
 }
@@ -75,9 +126,9 @@ let NewCardAttack = null;
         container.appendChild(buttonDiv);
     });
 }); 
+
 deze function was niet tuff
 waarom bewaar ik hem zelf nog?
-*/
 
 function CreateCard() {
     const container = document.getElementById("CardList");
@@ -98,6 +149,8 @@ function CreateCard() {
     container.appendChild(cardDiv);
 }
 
+deze was wel tuff :( */
+
 function CreateCharacter() {
     const name = prompt("Enter character name:");
     if (!name) return;
@@ -111,12 +164,16 @@ function CreateCharacter() {
     const classPrompt = "Select a class:\n1. dwarf\n2. elf\n3. human\n4. orc\n5. mage\n6. dictator";
     const classIndex = prompt(classPrompt);
     if (!classIndex) return;
+
+    const image = prompt("Enter image URL:");
+    if (!image) return;
     
     const newCharacter = {
         name: name,
         health: parseInt(health),
         attack: parseInt(attack),
-        class: CardClasses[parseInt(classIndex) - 1]
+        class: CardClasses[parseInt(classIndex) - 1],
+        Image: image
     };
     
     characters.push(newCharacter);

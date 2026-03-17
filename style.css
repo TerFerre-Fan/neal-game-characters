@@ -2,30 +2,34 @@
 /* CSS Document */
 
 body {
-    background-color: #459bae;
+    background-color: #232b2d;
     font-family: Helvetica;
+    color: white;
 }
 
-#createbutton {
+#create-character {
     width: 9%;
     background-color: #4CAF50;
     color: white;
     text-align: center;
     border-radius: 5px;
+    font-size: 16px;
 }
 
-.card{
-    width: 10%;
-    height: 5%;
-    background-color: #e8f4f8;
+.character {
+    width: 15%;
+    background-color: #88c9b8;
     border: 1px solid #000;
     border-radius: 5px;
     text-align: center;
     margin-top: 5px;
     margin-right: 5px;
     float: left;
+    color:black;
 }
 
 .deletebutton {
     margin-left: 5px;
+    background-color: crimson;
+    border-radius: 5px;
 }
