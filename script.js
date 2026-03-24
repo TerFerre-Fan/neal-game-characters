@@ -7,28 +7,28 @@ const characters = [
         health: 100,
         attack: 20,
         class: "dwarf",
-        Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI4o2QqiNwyNsdklYDsXyHy4wDec5oLlKmWA&s"
+        Image: <img src='neal-game-characters/donck.png' alt='Maurice'> </img>
     },
     {
         name: "Finn",
         health: 120,
         attack: 30,
         class: "orc",
-        Image: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cb/Weinstein-like_Orc.jpg/250px-Weinstein-like_Orc.jpg"
+        Image: ""
     },
     {
         name: "Louis",
         health: 120,
         attack: 20,
         class: "human",
-        Image: "https://prod-img.nieuwsblad.be/public/nieuws/tz4hjr-1e3ea2b546bf15b73bf62dcb9754ad54172a74d46e3d6d7f32efb5eaa0d7b17c.jpg/alternates/BASE_WIDTH/1e3ea2b546bf15b73bf62dcb9754ad54172a74d46e3d6d7f32efb5eaa0d7b17c.jpg"
+        Image: ""
     },
     {
         name: "Jidske",
         health: 120,
         attack: 25,
         class: "dictator",
-        Image: "https://www.tersterre.be/wp-content/uploads/2023/08/jidske-scaled-768x768.jpg"
+        Image: ""
     }
 ];
 
@@ -91,7 +91,7 @@ function displayCharactersList() {
         pImage.className = "image";
         const spanImageView = document.createElement("span");
         spanImageView.className = "image-value";
-        spanImageView.innerHTML = `<img src="${characters[i].Image}" alt="${characters[i].name}" style="width: 100px; height: 100px;">`;
+        spanImageView.innerHTML = `<file src="${characters[i].Image}" alt="${characters[i].name}" style="width: 100px; height: 100px;">`;
         pImage.appendChild(spanImageView);
         pCharacter.appendChild(pImage);
         
@@ -151,7 +151,7 @@ function CreateCard() {
 
 deze was wel tuff :( */
 
-function CreateCharacter() {
+/*function CreateCharacter() {
     const name = prompt("Enter character name:");
     if (!name) return;
     
@@ -161,11 +161,10 @@ function CreateCharacter() {
     const attack = prompt("Enter attack:");
     if (!attack) return;
     
-    const classPrompt = "Select a class:\n1. dwarf\n2. elf\n3. human\n4. orc\n5. mage\n6. dictator";
-    const classIndex = prompt(classPrompt);
+    const classIndex = prompt("Select a class:\n1. dwarf\n2. elf\n3. human\n4. orc\n5. mage\n6. dictator");
     if (!classIndex) return;
 
-    const image = prompt("Enter image URL:");
+    const image = prompt("Submit an image file:");
     if (!image) return;
     
     const newCharacter = {
@@ -179,8 +178,45 @@ function CreateCharacter() {
     characters.push(newCharacter);
     displayCharactersList();
 }
+*/
+
+function SubmitCharacter() {
+    const nameInput = document.getElementById("nameInput").value;
+    const healthInput = document.getElementById("healthInput").value;
+    const attackInput = document.getElementById("attackInput").value;
+    const classSelect = document.getElementById("classInput").value;
+    const imageInput = document.getElementById("imageInput").src;
+
+    characters.push({
+        name: nameInput,
+        health: parseInt(healthInput),
+        attack: parseInt(attackInput),
+        class: classSelect,
+        Image: imageInput
+    });
+
+    displayCharactersList();
+}
 
 function DeleteCharacter(index) {
     characters.splice(index, 1);
     displayCharactersList();
+}
+
+function showAddCharacterContainer() {
+	document.getElementById("dropdown").style.display = "block";
+	const fileInput = document.getElementById("imageInput");
+	fileInput.addEventListener("change", previewFile);
+}
+
+function previewFile() {
+	const file = document.getElementById("imageInput").files[0];
+	const reader = new FileReader();
+
+	reader.addEventListener("load", () => {
+		document.getElementById("imageInputPreview").src = reader.result;
+	});
+	if (file) {
+		reader.readAsDataURL(file);
+	}
 }
