@@ -7,7 +7,9 @@
 <title>Untitled Document</title>
 </head>
 <body>
-    <div id="create-character">Create Character
+   
+   <div class="row">
+    <div id="create-character" onmouseover="showAddCharacterContainer()">Create Character
         <div id="dropdown">
             <label for="nameInput">Enter name:</label> <br>
             <input type="text" id="nameInput" placeholder="Name"> <br>
@@ -25,12 +27,16 @@
                 <option value="dictator">Dictator</option>
             </select> <br>
             <label for="imageInput">Submit an image file:</label> <br>
-            <input type="file" id="imageInput"> <br>
+            <input type="file" id="imageInput" > <br>
             <img src="" height="200" id="imageInputPreview"><br>
-            <input type="button" Onclick="SubmitCharacter()" id="submitCharacter" value="Submit"> <br>
+            <input type="button" onclick="SubmitCharacter()" id="submitCharacter" value="Submit"> <br>
         </div>
     </div>
+   </div>
+    
+    <div class="row">    
+        <div id="characters-list"></div>
+    </div>
 
-    <div id="characters-list"></div>
 </body>
 </html>
